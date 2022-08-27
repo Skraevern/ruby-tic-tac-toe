@@ -1,0 +1,6 @@
+class game, player1, player 2
+
+Display welcome
+Ask Names
+Display names and board
+
