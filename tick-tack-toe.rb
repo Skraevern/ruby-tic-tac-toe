@@ -6,23 +6,28 @@ class Game
         @game_over = false
         @active_player = @p1
         @picked_number = nil
-        clear
-        show_board
-        play
+        clear()
+        show_board()
+        play()
     end
 
-    def show_board
+    def show_board()
         puts "#############################"
         puts "####### Tick Tack Toe #######"
         puts "#############################"
-        puts "#{@game_pos_array[1]} | #{@game_pos_array[2]} | #{@game_pos_array[3]}        X = #{@p1.name}"
-        puts "#{@game_pos_array[4]} | #{@game_pos_array[5]} | #{@game_pos_array[6]}        O = #{@p2.name}"    
-        puts "#{@game_pos_array[7]} | #{@game_pos_array[8]} | #{@game_pos_array[9]}"
+        puts ""
+        puts " #{@game_pos_array[1]} | #{@game_pos_array[2]} | #{@game_pos_array[3]}"
+        puts "---+---+---    X = #{@p1.name}"
+        puts " #{@game_pos_array[4]} | #{@game_pos_array[5]} | #{@game_pos_array[6]}"
+        puts "---+---+---    O = #{@p2.name}"
+        puts " #{@game_pos_array[7]} | #{@game_pos_array[8]} | #{@game_pos_array[9]}"
+        puts ""
     end
-    def play
+
+    def play()
         while !@game_over
-            clear
-            show_board
+            clear()
+            show_board()
             puts "#{@active_player.name} pick a number!"
             @picked_number = gets.chomp
 
@@ -38,7 +43,7 @@ class Game
                 @picked_number = gets.chomp
             end
 
-            ## Adds active player symbol to correct position
+            ## Adds active player symbol to correct chosen position
             @game_pos_array.each_with_index { |num, i|  
                 if num == @picked_number.to_i
                     @game_pos_array[i] = @active_player.symbol
@@ -48,12 +53,12 @@ class Game
             # Adds number to active player for check_winner
             @active_player.picked_numbers_array.push(@picked_number.to_i)
 
-            check_winner
-            check_no_more_moves
+            check_winner()
+            check_no_more_moves()
         end
     end
 
-    def check_winner
+    def check_winner()
         win_arr = [
             [1, 2, 3],
             [4, 5, 7],
@@ -69,13 +74,14 @@ class Game
             arr.each_with_index { |num, i| 
                 if num == @active_player.picked_numbers_array[i]
                     score = score + 1
-                end
-                if score == 3
-                    display_winner
+                    if score == 3
+                        display_winner
+                    end
                 end
             }
         }
 
+        ## If no winner, switches player
         if @active_player.player_number == 1
             @p1 = @active_player
             @active_player = @p2
@@ -85,9 +91,9 @@ class Game
         end
     end
 
-    def display_winner
-        clear
-        show_board
+    def display_winner()
+        clear()
+        show_board()
         puts "Congratulations #{@active_player.name}!"
         @game_over = true
     end
@@ -107,9 +113,9 @@ class Player
         @picked_numbers_array = []
         @name = nil
         @symbol = symbol
-        ask_names
+        ask_names()
     end
-    def ask_names
+    def ask_names()
         if @player_number == 1
             puts "Welcome!"
         end
