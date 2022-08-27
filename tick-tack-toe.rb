@@ -15,8 +15,8 @@ class Game
         puts "#############################"
         puts "####### Tick Tack Toe #######"
         puts "#############################"
-        puts "#{@game_pos_array[1]} | #{@game_pos_array[2]} | #{@game_pos_array[3]}     X : #{@p1.name}"
-        puts "#{@game_pos_array[4]} | #{@game_pos_array[5]} | #{@game_pos_array[6]}     O : #{@p2.name}"    
+        puts "#{@game_pos_array[1]} | #{@game_pos_array[2]} | #{@game_pos_array[3]}        X = #{@p1.name}"
+        puts "#{@game_pos_array[4]} | #{@game_pos_array[5]} | #{@game_pos_array[6]}        O = #{@p2.name}"    
         puts "#{@game_pos_array[7]} | #{@game_pos_array[8]} | #{@game_pos_array[9]}"
     end
     def play
@@ -37,7 +37,6 @@ class Game
                 puts "Wrong number try agin"
                 @picked_number = gets.chomp
             end
-            puts "Correct"
 
             ## Adds active player symbol to correct position
             @game_pos_array.each_with_index { |num, i|  
@@ -46,9 +45,11 @@ class Game
                 end
             }
 
+            # Adds number to active player for check_winner
             @active_player.picked_numbers_array.push(@picked_number.to_i)
 
             check_winner
+            check_no_more_moves
         end
     end
 
@@ -89,6 +90,12 @@ class Game
         show_board
         puts "Congratulations #{@active_player.name}!"
         @game_over = true
+    end
+    def check_no_more_moves
+        if @game_pos_array.all? { |el| el.to_i == 0 }
+            puts "No more moves. Game over!"
+            @game_over = true
+        end
     end
 end
 
